@@ -4,55 +4,50 @@ namespace Rubiks
 {
     public class Face
     {
+        private readonly Colour centreColour;
+        private readonly List<Position> positions;
+
         public Face(Colour centreColour)
         {
-            CentreColour = centreColour;
-            Positions = new List<Position>(8);
+            this.centreColour = centreColour;
+            positions = new List<Position>(8);
         }
 
-        public Colour CentreColour { get; set; }
+        public Colour CentreColour
+        {
+            get { return centreColour; }
+        }
 
-        public List<Position> Positions { get; set; }
-
-        //TODO
-        public Face[] AdjacentFaces { get; set; }
+        public List<Position> Positions
+        {
+            get { return positions; }
+        }
 
         public void RotateClockwise()
         {
-            Positions[0].Piece = Positions[6].Piece;
-            Positions[1].Piece = Positions[7].Piece;
-
-            for (var i = 0; i < Positions.Count; i++)
+            var count = positions.Count;
+            
+            positions[0].Piece = positions[6].Piece;
+            positions[1].Piece = positions[7].Piece;
+            
+            for (var i = 0; i < count; i++)
             {
                 if (i > 2)
-                    Positions[i].Piece = Positions[i - 2].Piece;
-            }
-
-            foreach (var face in AdjacentFaces)
-            {
-                foreach (var pos in face.Positions)
-                {
-                    if (pos.Coordinate.HasFlag(CentreColour))
-                    {
-                        // subtract by two, but keep on same face
-                    }
-                    else
-                    {
-
-                    }
-                }
+                    positions[i].Piece = positions[i - 2].Piece;
             }
         }
 
         public void RotateCounterClockwise()
         {
-            Positions[6].Piece = Positions[0].Piece;
-            Positions[7].Piece = Positions[1].Piece;
+            var count = positions.Count;
 
-            for (var i = 0; i < Positions.Count; i++)
+            positions[6].Piece = positions[0].Piece;
+            positions[7].Piece = positions[1].Piece;
+
+            for (var i = 0; i < count; i++)
             {
                 if (i < 6)
-                    Positions[i].Piece = Positions[i + 2].Piece;
+                    positions[i].Piece = positions[i + 2].Piece;
             }
         }
     }

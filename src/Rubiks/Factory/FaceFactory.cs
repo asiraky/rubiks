@@ -27,8 +27,7 @@ namespace Rubiks.Factory
         public IEnumerable<Face> CreateInstances()
         {
             return from creator in this
-                select creator.CreateInstance();
+                   select creator.CreateInstance();
         }
-
     }
 }
